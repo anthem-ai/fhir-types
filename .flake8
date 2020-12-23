@@ -1,0 +1,5 @@
+[flake8]
+max-line-length = 88
+extend-ignore = E203
+exclude = dist,.venv,.env,env,venv,.cache,build,.eggs
+noqa-require-code = True

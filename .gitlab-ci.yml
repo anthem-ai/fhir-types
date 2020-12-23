@@ -1,0 +1,42 @@
+stages:
+  - test
+
+before_script:
+  - find src -type f -exec chmod 644 {} \;  # These files are sometimes chmod 666 in Gitlab, this will correct that so we can have deterministic builds.
+  - pip install --quiet pipenv==2022.1.8
+  - pipenv install --deploy --system --dev
+
+test-3.8:
+  image: python:3.8
+  stage: test
+  script:
+    - almake generate
+    - almake test
+    - almake build-dist
+    - sha256sum dist/*
+
+test-3.9:
+  image: python:3.9
+  stage: test
+  script:
+    - almake generate
+    - almake test
+    - almake build-dist
+    - sha256sum dist/*
+
+test-3.10:
+  image: python:3.10
+  stage: test
+  script:
+    - almake generate
+    - almake test
+    - almake build-dist
+    - sha256sum dist/*
+
+test-generate-up-to-date:
+  image: python:3.10
+  stage: test
+  script:
+    - make generate
+    - git add .
+    - git diff --staged --exit-code

@@ -1,0 +1,27 @@
+[tool.coverage.report]
+show_missing = true
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["src/fhir_jsonschema/compiled_fhir_jsonschema.py"]
+
+# https://github.com/csachs/pyproject-flake8
+# This only gets used when calling with `pflake8`
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203,"
+exclude = "dist,.venv,.env,env,venv,.cache,compiled_fhir_jsonschema.py"
+noqa-require-code = "true"
+
+[tool.isort]
+profile = "black"
+
+[tool.mypy]
+files = "."
+
+# This line enables version inference from git
+[tool.setuptools_scm]
+
+[build-system]
+requires = ["setuptools", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
